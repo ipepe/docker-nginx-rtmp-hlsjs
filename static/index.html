@@ -29,9 +29,7 @@
         <source src="/live/hello.m3u8" type="application/x-mpegURL">
     </video>
     <script>
-        videojs('player', {autoplay: true}).hlsQualitySelector({
-            displayCurrentQuality: true,
-        });
+        var player = videojs('player', {autoplay: true});
         player.ready(function() {
             player.play();
         });
