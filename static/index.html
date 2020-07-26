@@ -4,8 +4,11 @@
     <meta charset="utf-8" />
     <meta content="en" name="language" />
     <title>Livestream with HLS.js</title>
-    <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
-    <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+    <!-- video.js -->
+    <link href="http://vjs.zencdn.net/7.8.2/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/7.8.2/video.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-quality-levels@2.0.9/dist/videojs-contrib-quality-levels.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/videojs-hls-quality-selector@1.1.1/dist/videojs-hls-quality-selector.min.js"></script>
     <script src="https://cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js"></script>
     <style>
         body, head, html {
@@ -23,21 +26,16 @@
     </style>
 </head>
 <body>
-    <video id="video" class="video-js vjs-default-skin" controls>
+    <video id="player" class="video-js vjs-default-skin" controls autoplay>
         <source src="/live/hello.m3u8" type="application/x-mpegURL">
     </video>
     <script>
-        var options = {
-            html5: {
-                hlsjsConfig: {
-                    autoStartLoad: true
-                }
-            }
-        };
-        videojs.Html5Hlsjs.addHook('beforeinitialize', function(videojsPlayer, hlsjsInstance){
-            console.log(arguments);
+        videojs('player', {autoplay: true}).hlsQualitySelector({
+            displayCurrentQuality: true,
         });
-        var player = videojs('video', options);
+        player.ready(function() {
+            player.play();
+        });
     </script>
 </body>
 </html>
