@@ -4,11 +4,9 @@
     <meta charset="utf-8" />
     <meta content="en" name="language" />
     <title>Livestream with HLS.js</title>
-    <link href="http://vjs.zencdn.net/7.8.2/video-js.css" rel="stylesheet">
-    <script src="/assets/video.js"></script>
-    <script src="/assets/videojs-contrib-quality-levels.min.js"></script>
-    <script src="/assets/videojs-hls-quality-selector.min.js"></script>
-    <script src="/assets/videojs-hlsjs-plugin.js"></script>
+    <link href="http://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet">
+    <script src="http://vjs.zencdn.net/7.8.4/video.js"></script>
+    <script src="https://cdn.streamroot.io/videojs-hlsjs-plugin/1/stable/videojs-hlsjs-plugin.js"></script>
     <style>
         body, head, html {
             margin: 0px;
@@ -29,7 +27,14 @@
         <source src="/live/hello.m3u8" type="application/x-mpegURL">
     </video>
     <script>
-        var player = videojs('player', {autoplay: true});
+        var player = videojs('player', {
+            html5: {
+                hlsjsConfig: {
+                    liveSyncDurationCount: 1,
+                    liveMaxLatencyDurationCount: 3
+                }
+            }
+        });
         player.ready(function() {
             player.play();
         });
